@@ -1,5 +1,4 @@
-.env
 .env.local
-*.env
+.env
 node_modules/
 DISCORD_BOT_TOKEN
