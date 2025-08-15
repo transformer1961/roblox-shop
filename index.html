@@ -1142,32 +1142,44 @@ function hideAdminLogin() {
     document.getElementById('loginError').textContent = '';
     document.getElementById('adminLoginForm').reset();
 }
-    document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const username = document.getElementById('adminUsername').value.trim();
     const password = document.getElementById('adminPassword').value;
+    
+    // Clear any previous errors
+    document.getElementById('loginError').textContent = '';
+    
     if (!username || !password) {
         document.getElementById('loginError').textContent = 'Please enter both username and password';
         return;
     }
-    try {
-        const res = await fetch('/api/admin/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        });
-        const data = await res.json();
-        if (data.success) {
-            hideAdminLogin();
-            document.getElementById('adminPanel').classList.add('open');
-            document.getElementById('adminUserInfo').textContent = `Welcome, ${username}!`;
-            showMessage('Successfully logged in as admin!', 'success');
-        } else {
-            document.getElementById('loginError').textContent = data.message || 'Invalid username or password';
-            document.getElementById('adminPassword').value = '';
-        }
-    } catch (err) {
-        document.getElementById('loginError').textContent = 'Server error. Try again later.';
+    
+    // Simple local authentication (replace with your actual credentials)
+    const validUsername = 'admin';
+    const validPassword = 'password123';
+    
+    if (username === validUsername && password === validPassword) {
+        // Successful login
+        isAdminLoggedIn = true;
+        currentAdmin = username;
+        
+        // Hide login overlay
+        hideAdminLogin();
+        
+        // Show admin panel
+        document.getElementById('adminPanel').classList.add('open');
+        document.getElementById('adminUserInfo').textContent = `Welcome, ${username}!`;
+        
+        // Update admin dashboard
+        updateAdminDashboard();
+        
+        showMessage('Successfully logged in as admin!', 'success');
+    } else {
+        // Failed login
+        document.getElementById('loginError').textContent = 'Invalid username or password';
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('adminUsername').focus();
     }
 });
 
