@@ -12,7 +12,6 @@ app.use(session({
     secret: 'roblox-shop-secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using HTTPS
 }));
 
 // Admin login endpoint

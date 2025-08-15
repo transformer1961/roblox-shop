@@ -885,18 +885,18 @@
     </main>
 
     <!-- Admin Login Overlay -->
-    <div class="admin-login-overlay" id="adminLoginOverlay">
-        <div class="admin-login-box">
-            <button class="close-login" onclick="hideAdminLogin()">✕</button>
-            <h3>🔐 Admin Login</h3>
-            <form class="login-form" id="adminLoginForm">
-                <input type="text" class="login-input" id="adminUsername" placeholder="Username" required>
-                <input type="password" class="login-input" id="adminPassword" placeholder="Password" required>
-                <button type="submit" class="login-btn">Login</button>
-                <div class="login-error" id="loginError"></div>
-            </form>
-        </div>
+<div class="admin-login-overlay" id="adminLoginOverlay">
+    <div class="admin-login-box">
+        <button class="close-login" onclick="hideAdminLogin()">✕</button>
+        <h3>🔐 Admin Login</h3>
+        <form class="login-form" id="adminLoginForm">
+            <input type="text" class="login-input" id="adminUsername" placeholder="Username" required>
+            <input type="password" class="login-input" id="adminPassword" placeholder="Password" required>
+            <button type="submit" class="login-btn">Login</button>
+            <div class="login-error" id="loginError"></div>
+        </form>
     </div>
+</div>
 
     <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel">
@@ -1134,18 +1134,23 @@
         showMessage('Logged out successfully!', 'success');
     }
 
-    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const username = document.getElementById('adminUsername').value.trim();
-        const password = document.getElementById('adminPassword').value;
-        document.getElementById('loginError').textContent = '';
-        if (!username || !password) {
-            document.getElementById('loginError').textContent = 'Please enter both username and password';
-            return;
-        }
-        const validUsername = 'admin';
-        const validPassword = 'password123';
-        if (username === validUsername && password === validPassword) {
+    document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const username = document.getElementById('adminUsername').value.trim();
+    const password = document.getElementById('adminPassword').value;
+    document.getElementById('loginError').textContent = '';
+    if (!username || !password) {
+        document.getElementById('loginError').textContent = 'Please enter both username and password';
+        return;
+    }
+    try {
+        const res = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (data.success) {
             isAdminLoggedIn = true;
             currentAdmin = username;
             hideAdminLogin();
@@ -1154,11 +1159,14 @@
             updateAdminDashboard();
             showMessage('Successfully logged in as admin!', 'success');
         } else {
-            document.getElementById('loginError').textContent = 'Invalid username or password';
+            document.getElementById('loginError').textContent = data.message || 'Invalid username or password';
             document.getElementById('adminPassword').value = '';
             document.getElementById('adminUsername').focus();
         }
-    });
+    } catch (err) {
+        document.getElementById('loginError').textContent = 'Server error. Try again later.';
+    }
+});
 
     // --- Utility ---
     function showMessage(text, type = 'success') {
