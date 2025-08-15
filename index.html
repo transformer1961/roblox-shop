@@ -1132,39 +1132,6 @@
         return Math.floor(Math.random() * 900000) + 100000;
     }
 
-    // --- Admin Authentication ---
-    function showAdminLogin() {
-        document.getElementById('adminLoginOverlay').classList.add('show');
-        document.getElementById('adminUsername').focus();
-    }
-
-    function hideAdminLogin() {
-        document.getElementById('adminLoginOverlay').classList.remove('show');
-        document.getElementById('loginError').textContent = '';
-        document.getElementById('adminLoginForm').reset();
-    }
-
-    function loginAdmin(username, password) {
-        if (username === ADMIN_DEFAULT.username && password === ADMIN_DEFAULT.password) {
-            isAdminLoggedIn = true;
-            currentAdmin = username;
-            hideAdminLogin();
-            document.getElementById('adminPanel').classList.add('open');
-            document.getElementById('adminUserInfo').textContent = `Welcome, ${username}!`;
-            updateAdminDashboard();
-            showMessage('Successfully logged in as admin!', 'success');
-            return true;
-        }
-        return false;
-    }
-
-    function logoutAdmin() {
-        isAdminLoggedIn = false;
-        currentAdmin = null;
-        document.getElementById('adminPanel').classList.remove('open');
-        showMessage('Logged out successfully!', 'success');
-    }
-
     document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const username = document.getElementById('adminUsername').value.trim();
