@@ -993,7 +993,6 @@
                 <button class="admin-btn-primary" onclick="updateDiscordSettings()">Update Bot Settings</button>
                 <button class="admin-btn-primary" onclick="testBotConnection()" style="margin-top: 0.5rem; background: linear-gradient(45deg, #10b981, #059669);">Test Bot Connection</button>
             </div>
-
             <div class="admin-section">
                 <h4>📋 Recent Orders</h4>
                 <div id="recentOrders">
@@ -1042,7 +1041,6 @@
     <!-- Message Display -->
     <div class="message" id="messageDisplay"></div>
 
-    // ...existing code...
 <script>
     // --- Configuration ---
     const CONFIG = {
@@ -1115,61 +1113,52 @@
         onlineUsers: 1
     };
 
-    // Replace this entire section in your code:
+    let isAdminLoggedIn = false;
+    let currentAdmin = null;
 
-// 1. First, change the initial admin state from true to false
-let isAdminLoggedIn = false; // CHANGE THIS FROM true TO false
-let currentAdmin = null;
-
-// 2. Replace the entire logout function with this:
-function logoutAdmin() {
-    isAdminLoggedIn = false;
-    currentAdmin = null;
-    document.getElementById('adminPanel').classList.remove('open');
-    showMessage('Logged out successfully!', 'success');
-}
-
-// 3. Make sure the login event listener is exactly this:
-document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const username = document.getElementById('adminUsername').value.trim();
-    const password = document.getElementById('adminPassword').value;
-    
-    // Clear any previous errors
-    document.getElementById('loginError').textContent = '';
-    
-    if (!username || !password) {
-        document.getElementById('loginError').textContent = 'Please enter both username and password';
-        return;
-    }
-    
-    // Simple local authentication
-    const validUsername = 'admin';
-    const validPassword = 'password123';
-    
-    if (username === validUsername && password === validPassword) {
-        // Successful login
-        isAdminLoggedIn = true;
-        currentAdmin = username;
-        
-        // Hide login overlay
-        hideAdminLogin();
-        
-        // Show admin panel
-        document.getElementById('adminPanel').classList.add('open');
-        document.getElementById('adminUserInfo').textContent = `Welcome, ${username}!`;
-        
-        // Update admin dashboard
-        updateAdminDashboard();
-        
-        showMessage('Successfully logged in as admin!', 'success');
-    } else {
-        // Failed login
-        document.getElementById('loginError').textContent = 'Invalid username or password';
-        document.getElementById('adminPassword').value = '';
+    function showAdminLogin() {
+        document.getElementById('adminLoginOverlay').classList.add('show');
         document.getElementById('adminUsername').focus();
     }
-});
+
+    function hideAdminLogin() {
+        document.getElementById('adminLoginOverlay').classList.remove('show');
+        document.getElementById('loginError').textContent = '';
+        document.getElementById('adminLoginForm').reset();
+    }
+
+    function logoutAdmin() {
+        isAdminLoggedIn = false;
+        currentAdmin = null;
+        document.getElementById('adminPanel').classList.remove('open');
+        showMessage('Logged out successfully!', 'success');
+    }
+
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('adminUsername').value.trim();
+        const password = document.getElementById('adminPassword').value;
+        document.getElementById('loginError').textContent = '';
+        if (!username || !password) {
+            document.getElementById('loginError').textContent = 'Please enter both username and password';
+            return;
+        }
+        const validUsername = 'admin';
+        const validPassword = 'password123';
+        if (username === validUsername && password === validPassword) {
+            isAdminLoggedIn = true;
+            currentAdmin = username;
+            hideAdminLogin();
+            document.getElementById('adminPanel').classList.add('open');
+            document.getElementById('adminUserInfo').textContent = `Welcome, ${username}!`;
+            updateAdminDashboard();
+            showMessage('Successfully logged in as admin!', 'success');
+        } else {
+            document.getElementById('loginError').textContent = 'Invalid username or password';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminUsername').focus();
+        }
+    });
 
     // --- Utility ---
     function showMessage(text, type = 'success') {
@@ -1184,66 +1173,6 @@ document.getElementById('adminLoginForm').addEventListener('submit', function(e)
     function generateOrderId() {
         return Math.floor(Math.random() * 900000) + 100000;
     }
-    
-    function showAdminLogin() {
-    document.getElementById('adminLoginOverlay').classList.add('show');
-    document.getElementById('adminUsername').focus();
-}
-
-function hideAdminLogin() {
-    document.getElementById('adminLoginOverlay').classList.remove('show');
-    document.getElementById('loginError').textContent = '';
-    document.getElementById('adminLoginForm').reset();
-}
-    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const username = document.getElementById('adminUsername').value.trim();
-    const password = document.getElementById('adminPassword').value;
-    
-    // Clear any previous errors
-    document.getElementById('loginError').textContent = '';
-    
-    if (!username || !password) {
-        document.getElementById('loginError').textContent = 'Please enter both username and password';
-        return;
-    }
-    
-    // Simple local authentication (replace with your actual credentials)
-    const validUsername = 'admin';
-    const validPassword = 'password123';
-    
-    if (username === validUsername && password === validPassword) {
-        // Successful login
-        isAdminLoggedIn = true;
-        currentAdmin = username;
-        
-        // Hide login overlay
-        hideAdminLogin();
-        
-        // Show admin panel
-        document.getElementById('adminPanel').classList.add('open');
-        document.getElementById('adminUserInfo').textContent = `Welcome, ${username}!`;
-        
-        // Update admin dashboard
-        updateAdminDashboard();
-        
-        showMessage('Successfully logged in as admin!', 'success');
-    } else {
-        // Failed login
-        document.getElementById('loginError').textContent = 'Invalid username or password';
-        document.getElementById('adminPassword').value = '';
-        document.getElementById('adminUsername').focus();
-    }
-});
-
-// Update logout to use server endpoint
-function logoutAdmin() {
-    fetch('/api/admin/logout', { method: 'POST' })
-        .then(() => {
-            document.getElementById('adminPanel').classList.remove('open');
-            showMessage('Logged out successfully!', 'success');
-        });
-}
 
     // --- Product Management ---
     function displayProducts() {
@@ -1682,10 +1611,8 @@ function logoutAdmin() {
     // --- Panel Close Logic ---
     document.addEventListener('click', function(e) {
         const cart = document.getElementById('cartSidebar');
-        const admin = document.getElementById('adminPanel');
         const login = document.getElementById('adminLoginOverlay');
         const cartIcon = document.querySelector('.cart-icon');
-        const adminBtn = document.querySelector('.admin-btn');
         if (!cart.contains(e.target) && !cartIcon.contains(e.target) && cart.classList.contains('open')) {
             toggleCart();
         }
@@ -1717,7 +1644,6 @@ function logoutAdmin() {
     console.log('🤖 Discord Bot integration ready!');
 </script>
 
-// ...existing code...
 <script>
     // Example: Show a welcome popup when the user first visits
     document.addEventListener('DOMContentLoaded', function() {
