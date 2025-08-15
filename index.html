@@ -1115,8 +1115,61 @@
         onlineUsers: 1
     };
 
-    let isAdminLoggedIn = true;
-    let currentAdmin = null;
+    // Replace this entire section in your code:
+
+// 1. First, change the initial admin state from true to false
+let isAdminLoggedIn = false; // CHANGE THIS FROM true TO false
+let currentAdmin = null;
+
+// 2. Replace the entire logout function with this:
+function logoutAdmin() {
+    isAdminLoggedIn = false;
+    currentAdmin = null;
+    document.getElementById('adminPanel').classList.remove('open');
+    showMessage('Logged out successfully!', 'success');
+}
+
+// 3. Make sure the login event listener is exactly this:
+document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = document.getElementById('adminUsername').value.trim();
+    const password = document.getElementById('adminPassword').value;
+    
+    // Clear any previous errors
+    document.getElementById('loginError').textContent = '';
+    
+    if (!username || !password) {
+        document.getElementById('loginError').textContent = 'Please enter both username and password';
+        return;
+    }
+    
+    // Simple local authentication
+    const validUsername = 'admin';
+    const validPassword = 'password123';
+    
+    if (username === validUsername && password === validPassword) {
+        // Successful login
+        isAdminLoggedIn = true;
+        currentAdmin = username;
+        
+        // Hide login overlay
+        hideAdminLogin();
+        
+        // Show admin panel
+        document.getElementById('adminPanel').classList.add('open');
+        document.getElementById('adminUserInfo').textContent = `Welcome, ${username}!`;
+        
+        // Update admin dashboard
+        updateAdminDashboard();
+        
+        showMessage('Successfully logged in as admin!', 'success');
+    } else {
+        // Failed login
+        document.getElementById('loginError').textContent = 'Invalid username or password';
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('adminUsername').focus();
+    }
+});
 
     // --- Utility ---
     function showMessage(text, type = 'success') {
