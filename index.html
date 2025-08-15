@@ -286,6 +286,97 @@
             box-shadow: 0 5px 15px rgba(0, 162, 255, 0.4);
         }
 
+        /* Admin Login Overlay */
+        .admin-login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-login-overlay.show {
+            display: flex;
+        }
+
+        .admin-login-box {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 2px solid #00A2FF;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .admin-login-box h3 {
+            color: #00A2FF;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-width: 300px;
+        }
+
+        .login-input {
+            padding: 1rem;
+            border: 2px solid #4b5563;
+            background: #374151;
+            color: white;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #00A2FF;
+            background: #1f2937;
+        }
+
+        .login-btn {
+            background: linear-gradient(45deg, #00A2FF, #0078D4);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .login-error {
+            color: #ef4444;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .close-login {
+            background: none;
+            border: none;
+            color: #6b7280;
+            font-size: 1.5rem;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            cursor: pointer;
+        }
+
         /* Admin Panel */
         .admin-panel {
             position: fixed;
@@ -312,6 +403,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px solid #00A2FF;
         }
 
         .admin-header h3 {
@@ -325,6 +417,14 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: white;
+        }
+
+        .admin-user-info {
+            background: rgba(0, 162, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00A2FF;
         }
 
         .admin-content {
@@ -341,6 +441,8 @@
             color: #00A2FF;
             margin-bottom: 1rem;
             font-size: 1.2rem;
+            border-bottom: 1px solid #4b5563;
+            padding-bottom: 0.5rem;
         }
 
         .form-group {
@@ -351,6 +453,7 @@
             display: block;
             margin-bottom: 0.5rem;
             color: #e5e7eb;
+            font-weight: 500;
         }
 
         .form-group input,
@@ -363,6 +466,15 @@
             color: white;
             border-radius: 8px;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00A2FF;
+            background: #1f2937;
         }
 
         .admin-btn-primary {
@@ -377,6 +489,10 @@
             width: 100%;
         }
 
+        .admin-btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
         .admin-btn-danger {
             background: linear-gradient(45deg, #ef4444, #dc2626);
             color: white;
@@ -387,6 +503,10 @@
             font-weight: 600;
             transition: all 0.3s ease;
             font-size: 0.8rem;
+        }
+
+        .admin-btn-danger:hover {
+            transform: translateY(-1px);
         }
 
         .product-list {
@@ -401,6 +521,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid #4b5563;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card {
+            background: #374151;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #4b5563;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00A2FF;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-top: 0.2rem;
         }
 
         /* Discord Integration */
@@ -437,6 +585,26 @@
         .discord-btn:hover {
             background: #4752C4;
             transform: translateY(-2px);
+        }
+
+        .bot-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
         }
 
         /* Cart Sidebar */
@@ -525,6 +693,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #e5e7eb;
         }
 
         .cart-footer {
@@ -542,7 +715,7 @@
         .checkout-btn {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(45def, #5865F2, #4752C4);
+            background: linear-gradient(45deg, #5865F2, #4752C4);
             color: white;
             border: none;
             border-radius: 10px;
@@ -568,6 +741,17 @@
             }
         }
 
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
@@ -581,19 +765,49 @@
             animation: pulse 2s infinite;
         }
 
+        /* Success/Error Messages */
+        .message {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 4000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .message.success {
+            background: linear-gradient(45deg, #10b981, #059669);
+        }
+
+        .message.error {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
             
-            .admin-panel {
+            .admin-panel, .cart-sidebar {
                 width: 100vw;
+            }
+            
+            .admin-panel {
                 left: -100vw;
             }
             
             .cart-sidebar {
-                width: 100vw;
                 right: -100vw;
             }
             
@@ -603,6 +817,11 @@
             
             .products-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .admin-login-box {
+                margin: 1rem;
+                padding: 2rem;
             }
         }
     </style>
@@ -619,7 +838,7 @@
                 <li><a href="#discord">Discord</a></li>
             </ul>
             <div style="display: flex; gap: 1rem; align-items: center;">
-                <button class="admin-btn" onclick="toggleAdmin()">Admin Panel</button>
+                <button class="admin-btn" onclick="showAdminLogin()">Admin Login</button>
                 <button class="cart-icon" onclick="toggleCart()">
                     🛒
                     <span class="cart-count" id="cartCount">0</span>
@@ -656,21 +875,61 @@
                         <a href="#" class="discord-btn" onclick="joinDiscord()">📞 Join Discord Server</a>
                         <button class="discord-btn" onclick="checkOrderStatus()">📋 Check Order Status</button>
                     </div>
-                    <div id="discordStatus" style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;"></div>
+                    <div class="bot-status">
+                        <div class="status-indicator"></div>
+                        <span id="botStatusText">Bot Online - Ready to process orders!</span>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Admin Login Overlay -->
+    <div class="admin-login-overlay" id="adminLoginOverlay">
+        <div class="admin-login-box">
+            <button class="close-login" onclick="hideAdminLogin()">✕</button>
+            <h3>🔐 Admin Login</h3>
+            <form class="login-form" id="adminLoginForm">
+                <input type="text" class="login-input" id="adminUsername" placeholder="Username" required>
+                <input type="password" class="login-input" id="adminPassword" placeholder="Password" required>
+                <button type="submit" class="login-btn">Login</button>
+                <div class="login-error" id="loginError"></div>
+            </form>
+        </div>
+    </div>
+
     <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
             <h3>🔧 Admin Panel</h3>
-            <button class="close-admin" onclick="toggleAdmin()">✕</button>
+            <div class="admin-user-info" id="adminUserInfo">Admin</div>
+            <button class="close-admin" onclick="logoutAdmin()">🚪</button>
         </div>
         <div class="admin-content">
             <div class="admin-section">
-                <h4>Add New Product</h4>
+                <h4>📊 Dashboard</h4>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalSales">$0.00</div>
+                        <div class="stat-label">Total Sales</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="ordersToday">0</div>
+                        <div class="stat-label">Orders Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalProducts">0</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="onlineUsers">1</div>
+                        <div class="stat-label">Online Users</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h4>➕ Add New Product</h4>
                 <form id="addProductForm">
                     <div class="form-group">
                         <label>Product Name</label>
@@ -678,7 +937,7 @@
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea id="productDescription" placeholder="Describe your creation..." required></textarea>
+                        <textarea id="productDescription" placeholder="Describe your creation..." rows="3" required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Price (USD)</label>
@@ -695,43 +954,71 @@
                             <option value="guis">GUIs</option>
                             <option value="models">Models</option>
                             <option value="games">Games</option>
+                            <option value="tools">Tools</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Icon Emoji</label>
-                        <input type="text" id="productIcon" placeholder="🔧" required>
+                        <input type="text" id="productIcon" placeholder="🔧" maxlength="2" required>
                     </div>
                     <button type="submit" class="admin-btn-primary">Add Product</button>
                 </form>
             </div>
 
             <div class="admin-section">
-                <h4>Manage Products</h4>
+                <h4>📦 Manage Products</h4>
                 <ul class="product-list" id="adminProductList">
                     <!-- Products will be listed here -->
                 </ul>
             </div>
 
             <div class="admin-section">
-                <h4>Discord Bot Settings</h4>
+                <h4>🤖 Discord Bot Settings</h4>
                 <div class="form-group">
                     <label>Discord Server Invite</label>
-                    <input type="text" id="discordInvite" placeholder="https://discord.gg/yourserver">
+                    <input type="url" id="discordInvite" placeholder="https://discord.gg/yourserver" value="https://discord.gg/yourserver">
+                </div>
+                <div class="form-group">
+                    <label>Bot Token (Keep Secret!)</label>
+                    <input type="password" id="botToken" placeholder="Your bot token here">
                 </div>
                 <div class="form-group">
                     <label>Bot Status Message</label>
-                    <input type="text" id="botStatus" placeholder="Bot is online and ready!">
+                    <input type="text" id="botStatus" placeholder="Bot is online and ready!" value="Bot is online and ready!">
                 </div>
-                <button class="admin-btn-primary" onclick="updateDiscordSettings()">Update Discord Settings</button>
+                <div class="form-group">
+                    <label>Order Channel ID</label>
+                    <input type="text" id="orderChannelId" placeholder="123456789012345678">
+                </div>
+                <button class="admin-btn-primary" onclick="updateDiscordSettings()">Update Bot Settings</button>
+                <button class="admin-btn-primary" onclick="testBotConnection()" style="margin-top: 0.5rem; background: linear-gradient(45deg, #10b981, #059669);">Test Bot Connection</button>
             </div>
 
             <div class="admin-section">
-                <h4>Sales Analytics</h4>
-                <div style="background: #374151; padding: 1rem; border-radius: 8px;">
-                    <p>Total Sales: $<span id="totalSales">0.00</span></p>
-                    <p>Orders Today: <span id="ordersToday">0</span></p>
-                    <p>Top Product: <span id="topProduct">N/A</span></p>
+                <h4>📋 Recent Orders</h4>
+                <div id="recentOrders">
+                    <div style="text-align: center; color: #6b7280; padding: 1rem;">
+                        No recent orders
+                    </div>
                 </div>
+            </div>
+
+            <div class="admin-section">
+                <h4>⚙️ System Settings</h4>
+                <div class="form-group">
+                    <label>Shop Name</label>
+                    <input type="text" id="shopName" value="Roblox Creator Shop">
+                </div>
+                <div class="form-group">
+                    <label>Admin Username</label>
+                    <input type="text" id="newAdminUsername" placeholder="Current: admin">
+                </div>
+                <div class="form-group">
+                    <label>New Admin Password</label>
+                    <input type="password" id="newAdminPassword" placeholder="Leave blank to keep current">
+                </div>
+                <button class="admin-btn-primary" onclick="updateSystemSettings()">Update Settings</button>
+                <button class="admin-btn-danger" onclick="exportData()" style="margin-top: 0.5rem; width: 100%;">Export All Data</button>
             </div>
         </div>
     </div>
@@ -748,12 +1035,33 @@
         <div class="cart-footer">
             <div class="cart-total" id="cartTotal">Total: $0.00</div>
             <button class="checkout-btn" onclick="checkoutWithDiscord()">🎮 Checkout with Discord</button>
-            <button class="checkout-btn" style="background: #10b981;" onclick="checkoutWithRobux()">💎 Pay with Robux</button>
+            <button class="checkout-btn" style="background: linear-gradient(45deg, #10b981, #059669);" onclick="checkoutWithRobux()">💎 Pay with Robux</button>
         </div>
     </div>
 
+    <!-- Message Display -->
+    <div class="message" id="messageDisplay"></div>
+
     <script>
-        // Sample Roblox products
+        // Configuration and State Management
+        const CONFIG = {
+            adminCredentials: {
+                username: 'admin',
+                password: 'password123'
+            },
+            discordSettings: {
+                invite: 'https://discord.gg/yourserver',
+                botToken: '',
+                status: 'Bot is online and ready!',
+                orderChannelId: ''
+            },
+            shopSettings: {
+                name: 'Roblox Creator Shop',
+                currency: 'USD'
+            }
+        };
+
+        // Sample Roblox products with better data structure
         let products = [
             {
                 id: 1,
@@ -762,7 +1070,9 @@
                 robuxPrice: 2000,
                 category: "scripts",
                 icon: "🔧",
-                description: "Complete admin system with 50+ commands, GUI interface, and ban system"
+                description: "Complete admin system with 50+ commands, GUI interface, and ban system",
+                downloads: 0,
+                dateAdded: new Date().toISOString()
             },
             {
                 id: 2,
@@ -771,7 +1081,9 @@
                 robuxPrice: 1200,
                 category: "guis",
                 icon: "🛍️",
-                description: "Beautiful animated shop GUI with purchase animations and item previews"
+                description: "Beautiful animated shop GUI with purchase animations and item previews",
+                downloads: 0,
+                dateAdded: new Date().toISOString()
             },
             {
                 id: 3,
@@ -780,7 +1092,9 @@
                 robuxPrice: 1500,
                 category: "models",
                 icon: "🏎️",
-                description: "10 high-quality racing car models with working physics"
+                description: "10 high-quality racing car models with working physics",
+                downloads: 0,
+                dateAdded: new Date().toISOString()
             },
             {
                 id: 4,
@@ -789,25 +1103,113 @@
                 robuxPrice: 3500,
                 category: "games",
                 icon: "🎯",
-                description: "Full obby game with 50 stages, leaderboards, and shop system"
+                description: "Full obby game with 50 stages, leaderboards, and shop system",
+                downloads: 0,
+                dateAdded: new Date().toISOString()
             }
         ];
 
         let cart = [];
-        let discordSettings = {
-            invite: "https://discord.gg/yourserver",
-            status: "Bot is online and ready!"
-        };
+        let orders = [];
         let analytics = {
             totalSales: 0,
             ordersToday: 0,
-            topProduct: "N/A"
+            totalProducts: products.length,
+            onlineUsers: 1
         };
 
-        // Display products
+        let isAdminLoggedIn = false;
+        let currentAdmin = null;
+
+        // Utility Functions
+        function showMessage(text, type = 'success') {
+            const messageEl = document.getElementById('messageDisplay');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type} show`;
+            
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+            }, 3000);
+        }
+
+        function generateOrderId() {
+            return Math.floor(Math.random() * 900000) + 100000;
+        }
+
+        function saveToStorage() {
+            const data = {
+                products,
+                orders,
+                analytics,
+                config: CONFIG
+            };
+            // In a real implementation, this would save to a database
+            console.log('Saving data:', data);
+        }
+
+        // Admin Authentication
+        function showAdminLogin() {
+            document.getElementById('adminLoginOverlay').classList.add('show');
+            document.getElementById('adminUsername').focus();
+        }
+
+        function hideAdminLogin() {
+            document.getElementById('adminLoginOverlay').classList.remove('show');
+            document.getElementById('loginError').textContent = '';
+            document.getElementById('adminLoginForm').reset();
+        }
+
+        function loginAdmin(username, password) {
+            if (username === CONFIG.adminCredentials.username && 
+                password === CONFIG.adminCredentials.password) {
+                isAdminLoggedIn = true;
+                currentAdmin = username;
+                hideAdminLogin();
+                document.getElementById('adminPanel').classList.add('open');
+                document.getElementById('adminUserInfo').textContent = `Welcome, ${username}!`;
+                updateAdminDashboard();
+                showMessage('Successfully logged in as admin!', 'success');
+                return true;
+            }
+            return false;
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            currentAdmin = null;
+            document.getElementById('adminPanel').classList.remove('open');
+            showMessage('Logged out successfully!', 'success');
+        }
+
+        // Admin Login Form Handler
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value;
+            
+            if (!username || !password) {
+                document.getElementById('loginError').textContent = 'Please enter both username and password';
+                return;
+            }
+            
+            if (loginAdmin(username, password)) {
+                document.getElementById('loginError').textContent = '';
+            } else {
+                document.getElementById('loginError').textContent = 'Invalid username or password';
+                document.getElementById('adminPassword').value = '';
+            }
+        });
+
+        // Product Management
         function displayProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
+
+            if (products.length === 0) {
+                grid.innerHTML = '<div style="text-align: center; color: #6b7280; grid-column: 1/-1; padding: 2rem;">No products available. Admin can add products in the admin panel.</div>';
+                return;
+            }
 
             products.forEach(product => {
                 const productCard = document.createElement('div');
@@ -821,8 +1223,8 @@
                         <div class="product-name">${product.name}</div>
                         <div class="product-description">${product.description}</div>
                         <div class="product-price">
-                            $${product.price}
-                            <div class="robux-price">or ${product.robuxPrice} Robux</div>
+                            ${product.price.toFixed(2)}
+                            <div class="robux-price">or ${product.robuxPrice.toLocaleString()} Robux</div>
                         </div>
                         <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
                     </div>
@@ -831,25 +1233,97 @@
             });
         }
 
-        // Update admin product list
         function updateAdminProductList() {
             const list = document.getElementById('adminProductList');
             list.innerHTML = '';
+
+            if (products.length === 0) {
+                list.innerHTML = '<li style="text-align: center; color: #6b7280; padding: 1rem;">No products yet. Add your first product above!</li>';
+                return;
+            }
 
             products.forEach(product => {
                 const item = document.createElement('li');
                 item.className = 'product-list-item';
                 item.innerHTML = `
-                    <span>${product.icon} ${product.name} - $${product.price}</span>
+                    <div>
+                        <span style="font-size: 1.2rem; margin-right: 0.5rem;">${product.icon}</span>
+                        <span style="font-weight: 600;">${product.name}</span>
+                        <div style="font-size: 0.8rem; color: #9ca3af;">${product.price} | ${product.robuxPrice} R$ | ${product.downloads} downloads</div>
+                    </div>
                     <button class="admin-btn-danger" onclick="removeProduct(${product.id})">Delete</button>
                 `;
                 list.appendChild(item);
             });
         }
 
-        // Add product to cart
+        function addProduct(productData) {
+            const newProduct = {
+                id: Date.now(),
+                ...productData,
+                downloads: 0,
+                dateAdded: new Date().toISOString()
+            };
+
+            products.push(newProduct);
+            analytics.totalProducts = products.length;
+            displayProducts();
+            updateAdminProductList();
+            updateAnalyticsDisplay();
+            saveToStorage();
+        }
+
+        function removeProduct(productId) {
+            if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
+                products = products.filter(p => p.id !== productId);
+                analytics.totalProducts = products.length;
+                displayProducts();
+                updateAdminProductList();
+                updateAnalyticsDisplay();
+                saveToStorage();
+                showMessage('Product deleted successfully!', 'success');
+            }
+        }
+
+        // Add Product Form Handler
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!isAdminLoggedIn) {
+                showMessage('Please login as admin first!', 'error');
+                return;
+            }
+            
+            const productData = {
+                name: document.getElementById('productName').value.trim(),
+                description: document.getElementById('productDescription').value.trim(),
+                price: parseFloat(document.getElementById('productPrice').value),
+                robuxPrice: parseInt(document.getElementById('productRobux').value),
+                category: document.getElementById('productCategory').value,
+                icon: document.getElementById('productIcon').value.trim()
+            };
+
+            // Validation
+            if (!productData.name || !productData.description || !productData.icon) {
+                showMessage('Please fill in all required fields!', 'error');
+                return;
+            }
+
+            if (productData.price <= 0 || productData.robuxPrice <= 0) {
+                showMessage('Prices must be greater than 0!', 'error');
+                return;
+            }
+
+            addProduct(productData);
+            document.getElementById('addProductForm').reset();
+            showMessage('Product added successfully!', 'success');
+        });
+
+        // Shopping Cart Functions
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
+            if (!product) return;
+
             const existingItem = cart.find(item => item.id === productId);
 
             if (existingItem) {
@@ -860,9 +1334,9 @@
 
             updateCartDisplay();
             showCartNotification();
+            showMessage(`${product.name} added to cart!`, 'success');
         }
 
-        // Update cart display
         function updateCartDisplay() {
             const cartCount = document.getElementById('cartCount');
             const cartItems = document.getElementById('cartItems');
@@ -879,10 +1353,10 @@
                         <div style="font-size: 2rem;">${item.icon}</div>
                         <div class="cart-item-info">
                             <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">$${item.price} / ${item.robuxPrice} Robux</div>
+                            <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} / ${(item.robuxPrice * item.quantity).toLocaleString()} Robux</div>
                             <div class="quantity-controls">
                                 <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                                <span>${item.quantity}</span>
+                                <span style="margin: 0 0.5rem; font-weight: 600;">${item.quantity}</span>
                                 <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
                                 <button class="quantity-btn" onclick="removeFromCart(${item.id})" style="margin-left: 1rem; background: #fee2e2; color: #dc2626;">🗑️</button>
                             </div>
@@ -893,31 +1367,389 @@
 
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const robuxTotal = cart.reduce((sum, item) => sum + (item.robuxPrice * item.quantity), 0);
-            cartTotal.innerHTML = `Total: $${total.toFixed(2)}<br><small>or ${robuxTotal} Robux</small>`;
+            cartTotal.innerHTML = `Total: ${total.toFixed(2)}<br><small style="color: #10b981;">or ${robuxTotal.toLocaleString()} Robux</small>`;
         }
 
-        // Admin functions
-        function toggleAdmin() {
-            const panel = document.getElementById('adminPanel');
-            panel.classList.toggle('open');
-            if (panel.classList.contains('open')) {
-                updateAdminProductList();
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartDisplay();
+                }
             }
         }
 
-        function toggleCart() {
-            const sidebar = document.getElementById('cartSidebar');
-            sidebar.classList.toggle('open');
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartDisplay();
+            showMessage('Item removed from cart!', 'success');
         }
 
-        // Add product form handler
-        document.getElementById('addProductForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+        }
+
+        function showCartNotification() {
+            const cartIcon = document.querySelector('.cart-icon');
+            cartIcon.classList.add('pulse');
+            setTimeout(() => {
+                cartIcon.classList.remove('pulse');
+            }, 1000);
+        }
+
+        // Checkout Functions
+        function checkoutWithDiscord() {
+            if (cart.length === 0) {
+                showMessage('Your cart is empty!', 'error');
+                return;
+            }
             
-            const newProduct = {
-                id: Date.now(),
-                name: document.getElementById('productName').value,
-                description: document.getElementById('productDescription').value,
-                price: parseFloat(document.getElementById('productPrice').value),
-                robuxPrice: parseInt(document.getElementById('productRobux').value),
-                category:
+            const orderId = generateOrderId();
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const orderItems = cart.map(item => ({
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                id: item.id
+            }));
+            
+            const order = {
+                id: orderId,
+                items: orderItems,
+                total: total,
+                paymentMethod: 'discord',
+                status: 'pending',
+                date: new Date().toISOString(),
+                customer: 'Discord User'
+            };
+            
+            orders.push(order);
+            analytics.totalSales += total;
+            analytics.ordersToday += 1;
+            
+            // Update product download counts
+            cart.forEach(cartItem => {
+                const product = products.find(p => p.id === cartItem.id);
+                if (product) product.downloads += cartItem.quantity;
+            });
+            
+            updateAnalyticsDisplay();
+            updateRecentOrders();
+            saveToStorage();
+            
+            const itemsList = orderItems.map(item => `${item.name} x${item.quantity}`).join(', ');
+            
+            alert(`🎮 Order #${orderId} Created!\n\nItems: ${itemsList}\nTotal: ${total.toFixed(2)}\n\n✅ Join our Discord server to complete payment!\n\n📋 Use this command in Discord:\n!pay ${orderId}\n\nOr contact an admin with your order number.`);
+            
+            // Simulate Discord bot notification
+            simulateDiscordNotification(order);
+            
+            cart = [];
+            updateCartDisplay();
+            toggleCart();
+            showMessage('Order created! Check Discord for payment instructions.', 'success');
+        }
+
+        function checkoutWithRobux() {
+            if (cart.length === 0) {
+                showMessage('Your cart is empty!', 'error');
+                return;
+            }
+            
+            const orderId = generateOrderId();
+            const robuxTotal = cart.reduce((sum, item) => sum + (item.robuxPrice * item.quantity), 0);
+            const orderItems = cart.map(item => ({
+                name: item.name,
+                robuxPrice: item.robuxPrice,
+                quantity: item.quantity,
+                id: item.id
+            }));
+            
+            const order = {
+                id: orderId,
+                items: orderItems,
+                total: robuxTotal,
+                paymentMethod: 'robux',
+                status: 'pending',
+                date: new Date().toISOString(),
+                customer: 'Roblox User'
+            };
+            
+            orders.push(order);
+            const usdValue = robuxTotal * 0.0125; // Approximate conversion
+            analytics.totalSales += usdValue;
+            analytics.ordersToday += 1;
+            
+            // Update product download counts
+            cart.forEach(cartItem => {
+                const product = products.find(p => p.id === cartItem.id);
+                if (product) product.downloads += cartItem.quantity;
+            });
+            
+            updateAnalyticsDisplay();
+            updateRecentOrders();
+            saveToStorage();
+            
+            const itemsList = orderItems.map(item => `${item.name} x${item.quantity}`).join(', ');
+            
+            alert(`💎 Robux Order #${orderId} Created!\n\nItems: ${itemsList}\nTotal: ${robuxTotal.toLocaleString()} Robux\n\n🎮 Instructions:\n1. Join our Discord server\n2. Use command: !robux ${orderId}\n3. Send ${robuxTotal.toLocaleString()} Robux to: [Your Roblox Username]\n\nContact admin with order number for assistance.`);
+            
+            // Simulate Discord bot notification
+            simulateDiscordNotification(order);
+            
+            cart = [];
+            updateCartDisplay();
+            toggleCart();
+            showMessage('Robux order created! Check Discord for instructions.', 'success');
+        }
+
+        // Discord Integration
+        function joinDiscord() {
+            const invite = CONFIG.discordSettings.invite;
+            window.open(invite, '_blank');
+            showMessage('Discord server opened in new tab!', 'success');
+        }
+
+        function checkOrderStatus() {
+            const orderNumber = prompt('Enter your order number:');
+            if (orderNumber) {
+                const order = orders.find(o => o.id == orderNumber);
+                if (order) {
+                    alert(`Order #${order.id}\nStatus: ${order.status.toUpperCase()}\nTotal: ${order.paymentMethod === 'robux' ? order.total + ' Robux' : ' + order.total.toFixed(2)}\nDate: ${new Date(order.date).toLocaleDateString()}`);
+                } else {
+                    alert('Order not found. Please check your order number.');
+                }
+            }
+        }
+
+        function simulateDiscordNotification(order) {
+            console.log(`🤖 Discord Bot: New order #${order.id} received!`);
+            console.log(`Payment Method: ${order.paymentMethod}`);
+            console.log(`Total: ${order.paymentMethod === 'robux' ? order.total + ' Robux' : ' + order.total.toFixed(2)}`);
+            
+            // In a real implementation, this would send to your Discord bot
+            updateBotStatus('Processing new order...');
+            setTimeout(() => {
+                updateBotStatus('Ready to process orders!');
+            }, 3000);
+        }
+
+        function updateBotStatus(status) {
+            document.getElementById('botStatusText').textContent = status;
+        }
+
+        // Admin Functions
+        function updateDiscordSettings() {
+            if (!isAdminLoggedIn) {
+                showMessage('Please login as admin first!', 'error');
+                return;
+            }
+
+            CONFIG.discordSettings.invite = document.getElementById('discordInvite').value.trim();
+            CONFIG.discordSettings.botToken = document.getElementById('botToken').value.trim();
+            CONFIG.discordSettings.status = document.getElementById('botStatus').value.trim();
+            CONFIG.discordSettings.orderChannelId = document.getElementById('orderChannelId').value.trim();
+            
+            saveToStorage();
+            showMessage('Discord settings updated!', 'success');
+        }
+
+        function testBotConnection() {
+            if (!isAdminLoggedIn) {
+                showMessage('Please login as admin first!', 'error');
+                return;
+            }
+
+            // Simulate bot connection test
+            showMessage('Testing bot connection...', 'success');
+            updateBotStatus('Testing connection...');
+            
+            setTimeout(() => {
+                if (CONFIG.discordSettings.botToken) {
+                    updateBotStatus('✅ Bot connected successfully!');
+                    showMessage('Bot connection successful!', 'success');
+                } else {
+                    updateBotStatus('❌ Bot token required');
+                    showMessage('Please enter a bot token first!', 'error');
+                }
+            }, 2000);
+        }
+
+        function updateSystemSettings() {
+            if (!isAdminLoggedIn) {
+                showMessage('Please login as admin first!', 'error');
+                return;
+            }
+
+            const newShopName = document.getElementById('shopName').value.trim();
+            const newUsername = document.getElementById('newAdminUsername').value.trim();
+            const newPassword = document.getElementById('newAdminPassword').value.trim();
+
+            if (newShopName) {
+                CONFIG.shopSettings.name = newShopName;
+                document.querySelector('.logo').innerHTML = `🎮 ${newShopName}`;
+            }
+
+            if (newUsername) {
+                CONFIG.adminCredentials.username = newUsername;
+                document.getElementById('newAdminUsername').placeholder = `Current: ${newUsername}`;
+            }
+
+            if (newPassword) {
+                CONFIG.adminCredentials.password = newPassword;
+                document.getElementById('newAdminPassword').value = '';
+            }
+
+            saveToStorage();
+            showMessage('System settings updated!', 'success');
+        }
+
+        function exportData() {
+            if (!isAdminLoggedIn) {
+                showMessage('Please login as admin first!', 'error');
+                return;
+            }
+
+            const exportData = {
+                products,
+                orders,
+                analytics,
+                exportDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `shop-data-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            showMessage('Data exported successfully!', 'success');
+        }
+
+        function updateAdminDashboard() {
+            updateAnalyticsDisplay();
+            updateAdminProductList();
+            updateRecentOrders();
+            
+            // Update form fields with current settings
+            document.getElementById('discordInvite').value = CONFIG.discordSettings.invite;
+            document.getElementById('botStatus').value = CONFIG.discordSettings.status;
+            document.getElementById('shopName').value = CONFIG.shopSettings.name;
+        }
+
+        function updateAnalyticsDisplay() {
+            document.getElementById('totalSales').textContent = `${analytics.totalSales.toFixed(2)}`;
+            document.getElementById('ordersToday').textContent = analytics.ordersToday;
+            document.getElementById('totalProducts').textContent = analytics.totalProducts;
+            document.getElementById('onlineUsers').textContent = analytics.onlineUsers;
+        }
+
+        function updateRecentOrders() {
+            const container = document.getElementById('recentOrders');
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #6b7280; padding: 1rem;">No recent orders</div>';
+                return;
+            }
+
+            const recentOrders = orders.slice(-5).reverse(); // Last 5 orders
+            container.innerHTML = recentOrders.map(order => `
+                <div style="background: #374151; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; border: 1px solid #4b5563;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>Order #${order.id}</strong>
+                            <div style="font-size: 0.8rem; color: #9ca3af;">
+                                ${order.paymentMethod === 'robux' ? order.total + ' Robux' : ' + order.total.toFixed(2)} | 
+                                ${new Date(order.date).toLocaleDateString()}
+                            </div>
+                        </div>
+                        <span style="background: ${order.status === 'pending' ? '#f59e0b' : '#10b981'}; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem;">
+                            ${order.status.toUpperCase()}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Event Listeners and Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts();
+            updateCartDisplay();
+            updateAnalyticsDisplay();
+            
+            // Initialize Discord settings in form
+            document.getElementById('discordInvite').value = CONFIG.discordSettings.invite;
+            document.getElementById('botStatus').value = CONFIG.discordSettings.status;
+            document.getElementById('shopName').value = CONFIG.shopSettings.name;
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Close panels when clicking outside
+        document.addEventListener('click', function(e) {
+            const cart = document.getElementById('cartSidebar');
+            const admin = document.getElementById('adminPanel');
+            const login = document.getElementById('adminLoginOverlay');
+            const cartIcon = document.querySelector('.cart-icon');
+            const adminBtn = document.querySelector('.admin-btn');
+            
+            if (!cart.contains(e.target) && !cartIcon.contains(e.target) && cart.classList.contains('open')) {
+                toggleCart();
+            }
+            
+            if (!admin.contains(e.target) && !adminBtn.contains(e.target) && admin.classList.contains('open')) {
+                // Don't auto-close admin panel to prevent accidental closure
+            }
+
+            if (login.classList.contains('show') && !e.target.closest('.admin-login-box')) {
+                hideAdminLogin();
+            }
+        });
+
+        // Simulate dynamic bot status updates
+        function simulateBotUpdates() {
+            const statuses = [
+                '🟢 Bot online - Ready to process orders!',
+                '📦 Monitoring for new orders...',
+                '✅ All systems operational!',
+                '🎮 Helping customers in Discord...',
+                '💎 Robux payments verified!'
+            ];
+            
+            let statusIndex = 0;
+            setInterval(() => {
+                if (!document.getElementById('botStatusText').textContent.includes('Testing')) {
+                    updateBotStatus(statuses[statusIndex]);
+                    statusIndex = (statusIndex + 1) % statuses.length;
+                }
+            }, 8000);
+        }
+
+        // Initialize everything
+        simulateBotUpdates();
+        console.log('🎮 Roblox Creator Shop fully loaded!');
+        console.log('🔐 Default Admin: username="admin", password="password123"');
+        console.log('🤖 Discord Bot integration ready!');
+
+    </script>
+</body>
+</html>
