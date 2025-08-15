@@ -1115,7 +1115,7 @@
         onlineUsers: 1
     };
 
-    let isAdminLoggedIn = false;
+    let isAdminLoggedIn = true;
     let currentAdmin = null;
 
     // --- Utility ---
@@ -1131,7 +1131,17 @@
     function generateOrderId() {
         return Math.floor(Math.random() * 900000) + 100000;
     }
+    
+    function showAdminLogin() {
+    document.getElementById('adminLoginOverlay').classList.add('show');
+    document.getElementById('adminUsername').focus();
+}
 
+function hideAdminLogin() {
+    document.getElementById('adminLoginOverlay').classList.remove('show');
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('adminLoginForm').reset();
+}
     document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const username = document.getElementById('adminUsername').value.trim();
