@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Creator Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #00A2FF 0%, #0078D4 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 2px solid #00A2FF;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00A2FF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(0, 162, 255, 0.2);
+            color: #00A2FF;
+        }
+
+        .admin-btn {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cart-icon {
+            position: relative;
+            background: linear-gradient(45deg, #00A2FF, #0078D4);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="roblox" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23roblox)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .shop-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, #00A2FF, #0078D4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 162, 255, 0.4);
+        }
+
+        .shop-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 162, 255, 0.6);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 5rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1f2937;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #00A2FF;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #00A2FF, #0078D4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roblox-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .product-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00A2FF;
+            margin-bottom: 1rem;
+        }
+
+        .robux-price {
+            font-size: 0.9rem;
+            color: #10b981;
+            margin-top: 0.2rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(45deg, #00A2FF, #0078D4);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 162, 255, 0.4);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 400px;
+            height: 100vh;
+            background: #1f2937;
+            color: white;
+            z-index: 2000;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-panel.open {
+            left: 0;
+        }
+
+        .admin-header {
+            padding: 2rem;
+            background: #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h3 {
+            font-size: 1.5rem;
+            color: #00A2FF;
+        }
+
+        .close-admin {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .admin-section {
+            margin-bottom: 2rem;
+        }
+
+        .admin-section h4 {
+            color: #00A2FF;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e5e7eb;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #4b5563;
+            background: #374151;
+            color: white;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .admin-btn-primary {
+            background: linear-gradient(45deg, #00A2FF, #0078D4);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .admin-btn-danger {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .product-list {
+            list-style: none;
+        }
+
+        .product-list-item {
+            background: #374151;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Discord Integration */
+        .discord-section {
+            background: #5865F2;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .discord-widget {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            backdrop-filter: blur(20px);
+        }
+
+        .discord-btn {
+            background: #5865F2;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #00A2FF;
+            color: white;
+        }
+
+        .cart-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            margin-left: 1rem;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .cart-item-price {
+            color: #00A2FF;
+            font-weight: 600;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            background: #f3f4f6;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-footer {
+            padding: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45def, #5865F2, #4752C4);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .admin-panel {
+                width: 100vw;
+                left: -100vw;
+            }
+            
+            .cart-sidebar {
+                width: 100vw;
+                right: -100vw;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                🎮 Roblox Creator Shop
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#discord">Discord</a></li>
+            </ul>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="admin-btn" onclick="toggleAdmin()">Admin Panel</button>
+                <button class="cart-icon" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>🎮 Roblox Creations</h1>
+                <p>Premium scripts, GUIs, and game assets made by me!</p>
+                <a href="#products" class="shop-button">Browse My Creations</a>
+            </div>
+        </section>
+
+        <section class="products" id="products">
+            <div class="container">
+                <h2 class="section-title">My Roblox Creations</h2>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be dynamically generated -->
+                </div>
+            </div>
+        </section>
+
+        <section class="discord-section" id="discord">
+            <div class="container">
+                <h2 class="section-title" style="color: white;">Join My Discord Community!</h2>
+                <div class="discord-widget">
+                    <h3>🎮 Get Support & Updates</h3>
+                    <p>Join my Discord server for instant support, updates on new creations, and exclusive previews!</p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="#" class="discord-btn" onclick="joinDiscord()">📞 Join Discord Server</a>
+                        <button class="discord-btn" onclick="checkOrderStatus()">📋 Check Order Status</button>
+                    </div>
+                    <div id="discordStatus" style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h3>🔧 Admin Panel</h3>
+            <button class="close-admin" onclick="toggleAdmin()">✕</button>
+        </div>
+        <div class="admin-content">
+            <div class="admin-section">
+                <h4>Add New Product</h4>
+                <form id="addProductForm">
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" id="productName" placeholder="e.g. Advanced GUI System" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="productDescription" placeholder="Describe your creation..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (USD)</label>
+                        <input type="number" id="productPrice" step="0.01" placeholder="9.99" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Robux Price</label>
+                        <input type="number" id="productRobux" placeholder="1000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="productCategory" required>
+                            <option value="scripts">Scripts</option>
+                            <option value="guis">GUIs</option>
+                            <option value="models">Models</option>
+                            <option value="games">Games</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Icon Emoji</label>
+                        <input type="text" id="productIcon" placeholder="🔧" required>
+                    </div>
+                    <button type="submit" class="admin-btn-primary">Add Product</button>
+                </form>
+            </div>
+
+            <div class="admin-section">
+                <h4>Manage Products</h4>
+                <ul class="product-list" id="adminProductList">
+                    <!-- Products will be listed here -->
+                </ul>
+            </div>
+
+            <div class="admin-section">
+                <h4>Discord Bot Settings</h4>
+                <div class="form-group">
+                    <label>Discord Server Invite</label>
+                    <input type="text" id="discordInvite" placeholder="https://discord.gg/yourserver">
+                </div>
+                <div class="form-group">
+                    <label>Bot Status Message</label>
+                    <input type="text" id="botStatus" placeholder="Bot is online and ready!">
+                </div>
+                <button class="admin-btn-primary" onclick="updateDiscordSettings()">Update Discord Settings</button>
+            </div>
+
+            <div class="admin-section">
+                <h4>Sales Analytics</h4>
+                <div style="background: #374151; padding: 1rem; border-radius: 8px;">
+                    <p>Total Sales: $<span id="totalSales">0.00</span></p>
+                    <p>Orders Today: <span id="ordersToday">0</span></p>
+                    <p>Top Product: <span id="topProduct">N/A</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>🛒 Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p style="text-align: center; color: #6b7280; margin-top: 2rem;">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total" id="cartTotal">Total: $0.00</div>
+            <button class="checkout-btn" onclick="checkoutWithDiscord()">🎮 Checkout with Discord</button>
+            <button class="checkout-btn" style="background: #10b981;" onclick="checkoutWithRobux()">💎 Pay with Robux</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample Roblox products
+        let products = [
+            {
+                id: 1,
+                name: "Advanced Admin System",
+                price: 15.99,
+                robuxPrice: 2000,
+                category: "scripts",
+                icon: "🔧",
+                description: "Complete admin system with 50+ commands, GUI interface, and ban system"
+            },
+            {
+                id: 2,
+                name: "Custom Shop GUI",
+                price: 9.99,
+                robuxPrice: 1200,
+                category: "guis",
+                icon: "🛍️",
+                description: "Beautiful animated shop GUI with purchase animations and item previews"
+            },
+            {
+                id: 3,
+                name: "Racing Car Models Pack",
+                price: 12.99,
+                robuxPrice: 1500,
+                category: "models",
+                icon: "🏎️",
+                description: "10 high-quality racing car models with working physics"
+            },
+            {
+                id: 4,
+                name: "Complete Obby Game",
+                price: 29.99,
+                robuxPrice: 3500,
+                category: "games",
+                icon: "🎯",
+                description: "Full obby game with 50 stages, leaderboards, and shop system"
+            }
+        ];
+
+        let cart = [];
+        let discordSettings = {
+            invite: "https://discord.gg/yourserver",
+            status: "Bot is online and ready!"
+        };
+        let analytics = {
+            totalSales: 0,
+            ordersToday: 0,
+            topProduct: "N/A"
+        };
+
+        // Display products
+        function displayProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        ${product.icon}
+                        <div class="roblox-badge">${product.category.toUpperCase()}</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-price">
+                            $${product.price}
+                            <div class="robux-price">or ${product.robuxPrice} Robux</div>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+        }
+
+        // Update admin product list
+        function updateAdminProductList() {
+            const list = document.getElementById('adminProductList');
+            list.innerHTML = '';
+
+            products.forEach(product => {
+                const item = document.createElement('li');
+                item.className = 'product-list-item';
+                item.innerHTML = `
+                    <span>${product.icon} ${product.name} - $${product.price}</span>
+                    <button class="admin-btn-danger" onclick="removeProduct(${product.id})">Delete</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // Add product to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartDisplay();
+            showCartNotification();
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #6b7280; margin-top: 2rem;">Your cart is empty</p>';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div style="font-size: 2rem;">${item.icon}</div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price} / ${item.robuxPrice} Robux</div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                                <button class="quantity-btn" onclick="removeFromCart(${item.id})" style="margin-left: 1rem; background: #fee2e2; color: #dc2626;">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const robuxTotal = cart.reduce((sum, item) => sum + (item.robuxPrice * item.quantity), 0);
+            cartTotal.innerHTML = `Total: $${total.toFixed(2)}<br><small>or ${robuxTotal} Robux</small>`;
+        }
+
+        // Admin functions
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.classList.toggle('open');
+            if (panel.classList.contains('open')) {
+                updateAdminProductList();
+            }
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Add product form handler
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newProduct = {
+                id: Date.now(),
+                name: document.getElementById('productName').value,
+                description: document.getElementById('productDescription').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                robuxPrice: parseInt(document.getElementById('productRobux').value),
+                category:
